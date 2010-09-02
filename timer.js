@@ -4,8 +4,6 @@ function timer() {
       mins, secs, color, text
       duration = 5;
 
-  doc.write('<style>body{background:black;color:white;text-align:center;font-weight:bold;font-family:Helvetica,Tahoma,Arial;}div{font-size:350px}</style><button>tic-tac</button><div id="timer"></div>');
-
   function tictac() {
     seccounter++;
     mins = Math.floor(seccounter / 60);
@@ -21,11 +19,17 @@ function timer() {
     if (mins == duration) { stop(); text = 'CHANGE!'; }
     panel.innerHTML = text;
   }
+
   function stop() { 
     seccounter = 0;
     clearInterval(timer);
   }
-  doc.getElementsByTagName('button')[0].onclick = function() {
+
+  var styles = 'body{background:black;color:white;text-align:center;font-weight:bold;font-family:Helvetica,Tahoma,Arial;}div{font-size:350px}'; 
+
+  doc.write('<style>' + styles + '</style><button>tic-tac</button><div id="timer"></div>')
+
+ doc.getElementsByTagName('button')[0].onclick = function() {
     stop();
     timer = setInterval(tictac, 1000);
   };

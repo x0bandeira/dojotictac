@@ -27,12 +27,25 @@ function timer() {
 
   var styles = 'body{background:black;color:white;text-align:center;font-weight:bold;font-family:Helvetica,Tahoma,Arial;}div{font-size:350px}'; 
 
-  doc.write('<style>' + styles + '</style><button>tic-tac</button><div id="timer"></div>')
+  doc.write('<style>' + styles + '</style><button>tic-tac</button><button>pause</button><div id="timer"></div>')
 
- doc.getElementsByTagName('button')[0].onclick = function() {
+  doc.getElementsByTagName('button')[0].onclick = function() {
     stop();
     timer = setInterval(tictac, 1000);
   };
- 
-  panel = doc.getElementById('timer');
+  
+  doc.getElementsByTagName('button')[1].onclick = function(e) {
+    var text = 'pause';
+    if (timer == null) {
+      timer = setInterval(tictac, 1000); 
+    } else { 
+      clearInterval(timer); 
+      timer = null;
+      text = 'play';
+    }
+
+    e.target.innerHTML = text;
+  }
+
+    panel = doc.getElementById('timer');
 }

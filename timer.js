@@ -29,27 +29,9 @@ function timer() {
     timer = setInterval(update, 1000);
   }
 
-  var styles = 'body{background:black;color:white;text-align:center;font-weight:bold;font-family:Helvetica,Tahoma,Arial;}div{font-size:350px}'; 
+  var styles = 'body{background:black;color:white;text-align:center;font-weight:bold;font-family:Helvetica,Tahoma,Arial;height:' + window.innerHeight + 'px;}div{font-size:350px;}'; 
 
-  doc.write('<style>' + styles + '</style><button>tic-tac</button><button>pause</button><div id="timer"></div>')
-
-  doc.getElementsByTagName('button')[0].onclick = function() {
-    stop();
-    play();
-  };
-  
-  doc.getElementsByTagName('button')[1].onclick = function(e) {
-    var text = 'pause';
-    if (timer == null) {
-      play(); 
-    } else { 
-      clearInterval(timer); 
-      timer = null;
-      text = 'play';
-    }
-
-    e.target.innerHTML = text;
-  }
+  doc.write('<style>' + styles + '</style><div id="timer"></div>')
 
   var action, clicks = 0;
   
@@ -71,7 +53,7 @@ function timer() {
   
   panel = doc.getElementById('timer');
 
-  panel.onclick = function(event) {
+  doc.body.onclick = function(event) {
     clicks++;
     clearInterval(action);
     action = setInterval(tictac, 500);

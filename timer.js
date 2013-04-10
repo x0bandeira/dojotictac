@@ -66,4 +66,15 @@ function timer() {
   function playSound(){
     doc.getElementById("audio").play();  		 
   }
+
+  function loadDuration(){
+    var regex = /\d{1,2}/;
+    var text = '';
+    while(!regex.test(text))
+      text = prompt('Duration ?');
+
+    duration = text;
+  }
+  loadDuration();
+
 }

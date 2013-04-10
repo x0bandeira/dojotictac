@@ -10,8 +10,8 @@ The founding JS code was written in 10 minutes while standing in the rain waitin
 (will add a link when it is published)
 
 # What else can be added? #
-* Customizable iteration duration (current only 5 minutes)
-* Audio alerts for when the time ended
+* _Customizable iteration duration (current only 5 minutes)_ __Fixed__
+* _Audio alerts for when the time ended_ __Fixed__
 * Non-stop iteration with a change-over time
 
 Rock on! 

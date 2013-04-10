@@ -29,7 +29,9 @@ function timer() {
     timer = setInterval(update, 1000);
   }
 
-  var styles = 'body{background:black;color:white;text-align:center;font-weight:bold;font-family:Helvetica,Tahoma,Arial;height:' + window.innerHeight + 'px;}div{font-size:350px;}'; 
+  var screenSize = (document.body.clientHeigth<document.body.clientWidth?document.body.clientHeigth:document.body.clientWidth) * 0.7;
+  var styles = 'body{background:black;color:white;text-align:center;font-weight:bold;font-family:Helvetica,Tahoma,Arial;height:' + 
+       screenSize * 0.7 + 'px;}div{font-size:' + screenSize * 0.55 + 'px;}'; 
 
   doc.write('<style>' + styles + '</style><div id="timer"></div>')
 

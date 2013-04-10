@@ -4,36 +4,45 @@ function timer() {
       mins, secs, color, text
       duration = 5;
 
+
+  var screenSize = (document.body.clientHeigth<document.body.clientWidth?document.body.clientHeigth:document.body.clientWidth) * 0.7;
+  var styles = 'body{background:black;color:white;text-align:center;font-weight:bold;font-family:Helvetica,Tahoma,Arial;height:' + 
+       screenSize * 0.7 + 'px;}div{font-size:' + screenSize * 0.55 + 'px;}'; 
+  doc.write('<style>' + styles + '</style><div id="timer">00:00</div>' + 
+      '<audio src="sound.wav" id="audio" ></audio>');
+  panel = doc.getElementById('timer');
+
   function update() {
     seccounter++;
     mins = Math.floor(seccounter / 60);
     secs = mins == 0? seccounter: seccounter - (mins * 60);    
-    text = '0' + mins + ':' + (secs < 10 ? '0' + secs : secs);
+    text = (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' + secs : secs);
     
-    color = 'white';
-    if (mins > 3)
-      if (secs > 50) color = 'red';
-      else if (secs > 30) color = 'yellow'; 
+    color = (mins > duration * 0.9) ? 'red' : (mins > duration * 0.8 ? 'yellow' : 'white');
     panel.style.cssText = 'color:' + color;
 
-    if (mins == duration) { stop(); text = 'CHANGE!'; }
+    if (mins == duration) { panel.innerHTML = 'END!'; playSound(); stop();}
     panel.innerHTML = text;
-  }
+  } 
 
   function stop() { 
     seccounter = 0;
-    clearInterval(timer);
+    clearInterval(timer); 
+    timer = null;
   }
 
   function play() {
     timer = setInterval(update, 1000);
   }
 
-  var screenSize = (document.body.clientHeigth<document.body.clientWidth?document.body.clientHeigth:document.body.clientWidth) * 0.7;
-  var styles = 'body{background:black;color:white;text-align:center;font-weight:bold;font-family:Helvetica,Tahoma,Arial;height:' + 
-       screenSize * 0.7 + 'px;}div{font-size:' + screenSize * 0.55 + 'px;}'; 
-
-  doc.write('<style>' + styles + '</style><div id="timer"></div>')
+  function pause(){
+     if(timer==null) 
+       play();
+     else{
+       clearInterval(timer);
+       timer = null;
+     }
+  }
 
   var action, clicks = 0;
   
@@ -41,23 +50,20 @@ function timer() {
     if (clicks == 2) { 
       stop(); 
       play(); 
-    } else {
-      if (timer != null) {
-        clearInterval(timer);
-        timer = null;
-      } else {
-        play();
-      }
-    }
+    } else 
+      pause();
+
     clearInterval(action);
     clicks = 0;
   }
-  
-  panel = doc.getElementById('timer');
 
   doc.body.onclick = function(event) {
     clicks++;
     clearInterval(action);
     action = setInterval(tictac, 500);
+  }
+
+  function playSound(){
+    doc.getElementById("audio").play();  		 
   }
 }
